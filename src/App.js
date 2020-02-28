@@ -1,12 +1,14 @@
 import React from "react";
 import "./styles.css";
-import { MoviesList } from "./components/MoviesList";
+import { ApplicationRoutes } from "./components/ApplicationRoutes";
 
-export default function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <MoviesList />
-    </div>
-  );
+export class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello CodeSandbox</h1>
+        <ApplicationRoutes />
+      </div>
+    );
+  }
 }
