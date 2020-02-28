@@ -22,6 +22,4 @@ export const MoviesList = () => {
       ))}
     </>
   );
-
-  //   return <>{_mont(filmes)}</>;
 };
