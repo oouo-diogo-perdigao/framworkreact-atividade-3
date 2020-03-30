@@ -8,22 +8,36 @@ export const FavoritesView = () => {
   const selector = useSelector(state => state.favorites);
   const dispatch = useDispatch();
   console.log(selector);
+
   return (
-    <>
-      {selector.favorites.map(id => {
-        console.log(id);
-        return (
-          <p key={id}>
-            <Link to={"/film/" + id}>
-              {/* {f.title} */}
-              {id}
-            </Link>
-            <button onClick={() => dispatch(favoritesRemove(id))}>
-              Remove Favorites
-            </button>
-          </p>
-        );
-      })}
-    </>
+    <table>
+      <thead>
+        <tr>
+          <td>Filme</td>
+          <td>Ação</td>
+        </tr>
+      </thead>
+      <tbody>
+        {selector.favorites.map(obj => {
+          console.log(obj);
+          return (
+            <tr key={obj.id}>
+              <td>
+                <Link to={"/film/" + obj.id}>{obj.title}</Link>
+              </td>
+              <td>
+                <button
+                  onClick={() =>
+                    dispatch(favoritesRemove({ title: obj.title, id: obj.id }))
+                  }
+                >
+                  Remove Favorites
+                </button>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };

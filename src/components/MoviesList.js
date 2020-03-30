@@ -13,28 +13,46 @@ export const MoviesList = () => {
 
   React.useEffect(_ => {
     MoviesService.getPopularMovies().then(ret => {
-      console.log(ret);
       setFilmes(ret.data.results);
     });
   }, []);
 
-  console.log(selector);
   return (
-    <>
-      {filmes.map(f => (
-        <p key={f.id}>
-          <Link to={"/film/" + f.id}>{f.title}</Link>
-          {selector.favorites.indexOf(f.id) !== -1 ? (
-            <button onClick={() => dispatch(favoritesRemove(f.id))}>
-              Remove Favorites
-            </button>
-          ) : (
-            <button onClick={() => dispatch(favoritesAdd(f.id))}>
-              Add Favorites
-            </button>
-          )}
-        </p>
-      ))}
-    </>
+    <table>
+      <thead>
+        <tr>
+          <td>Filme</td>
+          <td>Ação</td>
+        </tr>
+      </thead>
+      <tbody>
+        {filmes.map(f => (
+          <tr key={f.id}>
+            <td>
+              <Link to={"/film/" + f.id}>{f.title}</Link>
+            </td>
+            <td>
+              {selector.favorites.filter(e => e.id === f.id).length ? (
+                <button
+                  onClick={() =>
+                    dispatch(favoritesRemove({ title: f.title, id: f.id }))
+                  }
+                >
+                  Remove Favorites
+                </button>
+              ) : (
+                <button
+                  onClick={() =>
+                    dispatch(favoritesAdd({ title: f.title, id: f.id }))
+                  }
+                >
+                  Add Favorites
+                </button>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };

@@ -9,9 +9,8 @@ export const favorites = (state = initialState, action) => {
     case FAVORITES_ADD:
       let favorites = state.favorites;
 
-      console.log(state.favorites.indexOf(action.payload));
-      if (state.favorites.indexOf(action.payload) == -1) {
-        console.log(action);
+      //Assegura que nao vai re-adicionar objeto com id repetido
+      if (!state.favorites.find(obj => obj.id === action.payload)) {
         favorites = [...state.favorites, action.payload];
       }
       console.log(favorites);
@@ -19,8 +18,14 @@ export const favorites = (state = initialState, action) => {
         ...state,
         favorites: favorites
       };
+
     case FAVORITES_REMOVE:
-      let newState = state.favorites.filter(e => e !== action.payload);
+      console.log(state.favorites);
+      console.log(action.payload);
+
+      let newState = state.favorites.filter(e => e.id !== action.payload.id);
+      console.log(state.favorites.filter(e => e.id !== action.payload.id));
+
       return {
         ...state,
         favorites: newState
